@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://httpbin.org/response-headers?Content-Type=text/plain%3B%20charset=UTF-8&Server=httpbin
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:13:01 GMT
+      Content-Type:
+      - application/json
+      - text/plain; charset=UTF-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000948905944824'
+      Content-Length:
+      - '109'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:13:01 GMT
+recorded_with: VCR 3.0.3

@@ -1,0 +1,208 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://httpbin.org/xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:12:25 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '522'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000452041625977'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:25 GMT
+- request:
+    method: head
+    uri: https://httpbin.org/xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:12:26 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '522'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000485897064209'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:26 GMT
+- request:
+    method: head
+    uri: https://httpbin.org/xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:12:27 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '522'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000526905059814'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:27 GMT
+- request:
+    method: head
+    uri: https://httpbin.org/xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:12:27 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '522'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000463008880615'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:27 GMT
+- request:
+    method: head
+    uri: https://httpbin.org/xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Server:
+      - meinheld/0.6.1
+      Date:
+      - Thu, 02 Nov 2017 17:12:27 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '522'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - Flask
+      X-Processed-Time:
+      - '0.000439882278442'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:28 GMT
+recorded_with: VCR 3.0.3

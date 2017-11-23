@@ -1,0 +1,129 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://www.wikipedia.org/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 02 Nov 2017 17:12:24 GMT
+      Content-Type:
+      - text/html
+      Connection:
+      - keep-alive
+      Server:
+      - mw1210.eqiad.wmnet
+      Cache-Control:
+      - s-maxage=86400, must-revalidate, max-age=3600
+      Etag:
+      - W/"151c8-55cc794c07f98"
+      Last-Modified:
+      - Mon, 30 Oct 2017 18:12:27 GMT
+      Backend-Timing:
+      - D=209 t=1509387425454971
+      Vary:
+      - Accept-Encoding
+      X-Varnish:
+      - 477990520 483394723, 648103492 614686299, 539036360 88773556
+      Via:
+      - 1.1 varnish-v4, 1.1 varnish-v4, 1.1 varnish-v4
+      Age:
+      - '82518'
+      X-Cache:
+      - cp1054 hit/8, cp3032 hit/2, cp3031 hit/959310
+      X-Cache-Status:
+      - hit
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Set-Cookie:
+      - GeoIP=UA:30:Kiev:50.43:30.52:v4; Path=/; secure; Domain=.wikipedia.org
+      - WMF-Last-Access-Global=02-Nov-2017;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon,
+        04 Dec 2017 12:00:00 GMT
+      - WMF-Last-Access=02-Nov-2017;Path=/;HttpOnly;secure;Expires=Mon, 04 Dec 2017
+        12:00:00 GMT
+      X-Analytics:
+      - https=1;nocookies=1
+      X-Client-Ip:
+      - 91.195.96.227
+      Accept-Ranges:
+      - bytes
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:24 GMT
+- request:
+    method: head
+    uri: https://www.wikipedia.org/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 02 Nov 2017 17:12:25 GMT
+      Content-Type:
+      - text/html
+      Connection:
+      - keep-alive
+      Server:
+      - mw1210.eqiad.wmnet
+      Cache-Control:
+      - s-maxage=86400, must-revalidate, max-age=3600
+      Etag:
+      - W/"151c8-55cc794c07f98"
+      Last-Modified:
+      - Mon, 30 Oct 2017 18:12:27 GMT
+      Backend-Timing:
+      - D=209 t=1509387425454971
+      Vary:
+      - Accept-Encoding
+      X-Varnish:
+      - 477990520 483394723, 648103492 614686299, 529146874 88773556
+      Via:
+      - 1.1 varnish-v4, 1.1 varnish-v4, 1.1 varnish-v4
+      Age:
+      - '82518'
+      X-Cache:
+      - cp1054 hit/8, cp3032 hit/2, cp3031 hit/959312
+      X-Cache-Status:
+      - hit
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Set-Cookie:
+      - GeoIP=UA:30:Kiev:50.43:30.52:v4; Path=/; secure; Domain=.wikipedia.org
+      - WMF-Last-Access-Global=02-Nov-2017;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon,
+        04 Dec 2017 12:00:00 GMT
+      - WMF-Last-Access=02-Nov-2017;Path=/;HttpOnly;secure;Expires=Mon, 04 Dec 2017
+        12:00:00 GMT
+      X-Analytics:
+      - https=1;nocookies=1
+      X-Client-Ip:
+      - 91.195.96.227
+      Accept-Ranges:
+      - bytes
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 02 Nov 2017 17:12:25 GMT
+recorded_with: VCR 3.0.3
