@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler',        '~> 1.16'
   spec.add_development_dependency 'byebug',         '~> 9.1'
-  spec.add_development_dependency 'inch',           '~> 0.7'
+  spec.add_development_dependency 'inch',           '~> 0.8'
   spec.add_development_dependency 'letters',        '~> 0.4'
   spec.add_development_dependency 'rake',           '~> 12.2'
   spec.add_development_dependency 'rspec',          '~> 3.7'
@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov',      '~> 0.15'
   spec.add_development_dependency 'vcr',            '~> 3.0'
   spec.add_development_dependency 'webmock',        '~> 3.1'
-  spec.add_development_dependency 'yard',           '~> 0.8'
+  spec.add_development_dependency 'yard',           '~> 0.9'
 
   spec.add_dependency 'activesupport', '~> 5.1'
   spec.add_dependency 'addressable',   '~> 2.5'
