@@ -63,6 +63,29 @@ RSpec.describe NetworkUtils::UrlInfo do
       expect(NetworkUtils::UrlInfo.new(not_encoded_url).valid_online?).to be_truthy
     end
 
+    it 'chaches nonempty headers on an instance level' do
+      nu = NetworkUtils::UrlInfo.new(xml_url)
+
+      headers_cache_obj_id = nu.headers.object_id
+      expect(nu.headers).not_to be_nil
+
+      headers_cache_obj_id_subsequent = nu.headers.object_id
+
+      expect(headers_cache_obj_id).to eq(headers_cache_obj_id_subsequent)
+    end
+
+    it 'does not cache empty headers on an instance level' do
+      nu = NetworkUtils::UrlInfo.new(delay_15)
+
+      recieved_headers = nu.headers
+      expect(recieved_headers).to be_nil
+
+      headers_cache_obj_id = recieved_headers.object_id
+      headers_cache_obj_id_subsequent = nu.headers.object_id
+
+      expect(headers_cache_obj_id).to eq(headers_cache_obj_id_subsequent)
+    end
+
     it 'returns false on URL with invalid schema', vcr: true do
       expect(NetworkUtils::UrlInfo.new(invalid_schema_url).valid?).to be_falsy
     end
