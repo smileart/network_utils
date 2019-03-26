@@ -85,13 +85,14 @@ module NetworkUtils
 
       Timeout.timeout(@request_timeout) do
         response = HTTParty.head(encoded_url, timeout: @request_timeout)
+
         raise response.response if response.response.is_a?(Net::HTTPServerError) ||
                                    response.response.is_a?(Net::HTTPClientError)
 
         return response.headers
       end
     rescue SocketError, ThreadError, Errno::ECONNREFUSED, Errno::EADDRNOTAVAIL, Timeout::Error, TypeError,
-           Net::HTTPServerError, Net::HTTPClientError
+           Net::HTTPServerError, Net::HTTPClientError, HTTParty::ResponseError
       nil
     end
 

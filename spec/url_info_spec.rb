@@ -18,6 +18,7 @@ RSpec.describe NetworkUtils::UrlInfo do
   let(:xml_url) { 'https://httpbin.org/xml' }
   let(:delay_1) { 'https://httpbin.org/delay/1' }
   let(:delay_15) { 'https://httpbin.org/delay/15' }
+  let(:deep_redirect) { 'https://httpbin.org/absolute-redirect/10' }
 
   let(:multi_content_types_url) do
     Addressable::URI.unencode('https://httpbin.org/response-headers?Server=httpbin&Content-Type=text%2Fplain%3B+charset%3DUTF-8')
@@ -143,6 +144,10 @@ RSpec.describe NetworkUtils::UrlInfo do
       expect(url_info.headers).to be_nil
       expect(url_info.content_type).to be_nil
       expect(url_info.size).to eq(0)
+    end
+
+    it 'returns nil from #headers on deep redirects' do
+      expect(NetworkUtils::UrlInfo.new(deep_redirect).headers).to be_nil
     end
 
     it 'returns nil from #headers on read timeout', vcr: false do

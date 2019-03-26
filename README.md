@@ -30,9 +30,9 @@ Or install it yourself as:
 info = NetworkUtils::UrlInfo.new('https://www.wikipedia.org')
 info.valid?           # => true
 info.valid_online?    # => true
-info.headers          # { 'content-type': 100500, … } 
+info.headers          # { 'content-type': 100500, … }
 info.is?([:text, 'text/html', 'application/xml', 'text/csv'])
-info.content_type     # => 'text/html'    
+info.content_type     # => 'text/html'
 info.size             # => 100500
 info.is?('text/html') # => true
 info.is?(:image)      # => false
@@ -48,7 +48,7 @@ NetworkUtils::Port.available?(65000) # => true
 NetworkUtils::Port.free?(50200)      # => false
 
 NetworkUtils::Port.opened?(50200)    # => true
-NetworkUtils::Port.occupied?(65000)  # => false 
+NetworkUtils::Port.occupied?(65000)  # => false
 ```
 
 ## Development
