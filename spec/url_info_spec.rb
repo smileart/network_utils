@@ -19,6 +19,7 @@ RSpec.describe NetworkUtils::UrlInfo do
   let(:xml_url) { 'https://httpbin.org/xml' }
   let(:delay_1) { 'https://httpbin.org/delay/1' }
   let(:delay_15) { 'https://httpbin.org/delay/15' }
+  let(:deep_redirect) { 'https://httpbin.org/absolute-redirect/10' }
 
   let(:multi_content_types_url) do
     Addressable::URI.unencode('https://httpbin.org/response-headers?Server=httpbin&Content-Type=text%2Fplain%3B+charset%3DUTF-8')
@@ -62,6 +63,29 @@ RSpec.describe NetworkUtils::UrlInfo do
     it 'validates URL online', vcr: true do
       expect(NetworkUtils::UrlInfo.new(valid_https_url).valid_online?).to be_truthy
       expect(NetworkUtils::UrlInfo.new(not_encoded_url).valid_online?).to be_truthy
+    end
+
+    it 'chaches nonempty headers on an instance level' do
+      nu = NetworkUtils::UrlInfo.new(xml_url)
+
+      headers_cache_obj_id = nu.headers.object_id
+      expect(nu.headers).not_to be_nil
+
+      headers_cache_obj_id_subsequent = nu.headers.object_id
+
+      expect(headers_cache_obj_id).to eq(headers_cache_obj_id_subsequent)
+    end
+
+    it 'does not cache empty headers on an instance level' do
+      nu = NetworkUtils::UrlInfo.new(delay_15)
+
+      recieved_headers = nu.headers
+      expect(recieved_headers).to be_nil
+
+      headers_cache_obj_id = recieved_headers.object_id
+      headers_cache_obj_id_subsequent = nu.headers.object_id
+
+      expect(headers_cache_obj_id).to eq(headers_cache_obj_id_subsequent)
     end
 
     it 'returns false on URL with invalid schema', vcr: true do
@@ -121,6 +145,10 @@ RSpec.describe NetworkUtils::UrlInfo do
       expect(url_info.headers).to be_nil
       expect(url_info.content_type).to be_nil
       expect(url_info.size).to eq(0)
+    end
+
+    it 'returns nil from #headers on deep redirects' do
+      expect(NetworkUtils::UrlInfo.new(deep_redirect).headers).to be_nil
     end
 
     it 'returns nil from #headers on read timeout', vcr: false do

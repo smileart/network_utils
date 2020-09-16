@@ -80,23 +80,28 @@ module NetworkUtils
     #
     # @return [Hash, nil] remote resource HTTP headers list or nil
     def headers
+      @headers ||= request_headers
+    end
+
+    private
+
+    def request_headers
       return nil if @url.to_s.empty?
       return nil unless (encoded_url = encode(@url))
 
       Timeout.timeout(@request_timeout + CODE_TIMEOUT_EXTRA) do
         response = HTTParty.head(encoded_url, timeout: @request_timeout)
+
         raise response.response if response.response.is_a?(Net::HTTPServerError) ||
                                    response.response.is_a?(Net::HTTPClientError)
 
-        @headers ||= response.headers
+        return response.headers
       end
     rescue SocketError, ThreadError, Errno::ENETUNREACH, Errno::ECONNREFUSED,
            Errno::EADDRNOTAVAIL, Timeout::Error, TypeError,
            Net::HTTPServerError, Net::HTTPClientError, Net::OpenTimeout
       nil
     end
-
-    private
 
     def encode(url)
       Addressable::URI.encode(url)

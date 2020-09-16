@@ -36,14 +36,14 @@ info.is?([:text, 'text/html', 'application/xml', 'text/csv'])
 info.content_type     # => 'text/html'
 info.size             # => 100500
 info.is?('text/html') # => true
-info.is?(:image).     # => false
+info.is?(:image)      # => false
 ```
 
 ```ruby
 # NetworkUtils::Port
 
-NetworkUtils::Port.random       # => 50200
-NetworkUtils::Port.random_free  # => 65000
+NetworkUtils::Port.random            # => 50200
+NetworkUtils::Port.random_free       # => 65000
 
 NetworkUtils::Port.available?(65000) # => true
 NetworkUtils::Port.free?(50200)      # => false
