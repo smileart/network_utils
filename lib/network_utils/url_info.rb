@@ -6,9 +6,15 @@ require 'addressable/uri'
 require 'url_regex'
 require 'active_support/core_ext/array/wrap'
 
+require_relative '../tapp_printer' if ENV['DEBUG']
+
 ##
 #  Namespace Module to wrap self-written Network tools
 module NetworkUtils
+  # Additional time to add to Ruby timeout as a workound
+  # for HTTParty timeout issue when with the same timeout Ruby fails earlier
+  CODE_TIMEOUT_EXTRA = 3
+
   ##
   # Simple class to get URL info (validation/existance, headers, content-type)
   # Allows to get all this stuff without actually downloading huge files like
@@ -18,10 +24,10 @@ module NetworkUtils
     # Initialise a UrlInfo for a particular URL
     #
     # @param [String] url the URL you want to get info about
-    # @param [Integer] request_timeout Max time to wait for headers from the server
+    # @param [Integer] request_timeout Max time to wait for headers from the server (seconds)
     #
     def initialize(url, request_timeout = 10)
-      @url = url.dup.to_s.force_encoding('UTF-8')
+      @url = String.new(url.to_s).force_encoding('UTF-8')
       @request_timeout = request_timeout
     end
 
@@ -77,15 +83,16 @@ module NetworkUtils
       return nil if @url.to_s.empty?
       return nil unless (encoded_url = encode(@url))
 
-      Timeout.timeout(@request_timeout) do
+      Timeout.timeout(@request_timeout + CODE_TIMEOUT_EXTRA) do
         response = HTTParty.head(encoded_url, timeout: @request_timeout)
         raise response.response if response.response.is_a?(Net::HTTPServerError) ||
                                    response.response.is_a?(Net::HTTPClientError)
 
         @headers ||= response.headers
       end
-    rescue SocketError, ThreadError, Errno::ECONNREFUSED, Errno::EADDRNOTAVAIL, Timeout::Error, TypeError,
-           Net::HTTPServerError, Net::HTTPClientError
+    rescue SocketError, ThreadError, Errno::ENETUNREACH, Errno::ECONNREFUSED,
+           Errno::EADDRNOTAVAIL, Timeout::Error, TypeError,
+           Net::HTTPServerError, Net::HTTPClientError, Net::OpenTimeout
       nil
     end
 

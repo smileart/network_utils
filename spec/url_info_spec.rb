@@ -2,6 +2,7 @@
 
 require 'active_support/all'
 require 'network_utils/url_info'
+require 'webmock/rspec'
 
 require_relative './fixtures/url_info_fixtures'
 
@@ -123,6 +124,12 @@ RSpec.describe NetworkUtils::UrlInfo do
     end
 
     it 'returns nil from #headers on read timeout', vcr: false do
+      stub_request(:any, delay_1)
+        .to_return(:body => lambda { |request| sleep 1; "test" }, status: 200)
+
+      stub_request(:any, delay_15)
+        .to_return(:body => lambda { |request| sleep 15; "test" }, status: 200)
+
       expect(NetworkUtils::UrlInfo.new(delay_1).headers).not_to be_nil
       expect(NetworkUtils::UrlInfo.new(delay_15).headers).to be_nil
     end
