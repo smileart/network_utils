@@ -5,6 +5,7 @@
 </p>
 
 > A set of convenient network utils utils to get URL info before downloading a resource, work with ports, etc.
+> [![Build Status](https://travis-ci.org/smileart/network_utils.svg?branch=master)](https://travis-ci.org/smileart/network_utils)
 
 ## Installation
 
@@ -30,9 +31,9 @@ Or install it yourself as:
 info = NetworkUtils::UrlInfo.new('https://www.wikipedia.org')
 info.valid?           # => true
 info.valid_online?    # => true
-info.headers          # { 'content-type': 100500, … } 
+info.headers          # { 'content-type': 100500, … }
 info.is?([:text, 'text/html', 'application/xml', 'text/csv'])
-info.content_type     # => 'text/html'    
+info.content_type     # => 'text/html'
 info.size             # => 100500
 info.is?('text/html') # => true
 info.is?(:image).     # => false
@@ -48,7 +49,10 @@ NetworkUtils::Port.available?(65000) # => true
 NetworkUtils::Port.free?(50200)      # => false
 
 NetworkUtils::Port.opened?(50200)    # => true
-NetworkUtils::Port.occupied?(65000)  # => false 
+NetworkUtils::Port.occupied?(65000)  # => false
+
+NetworkUtils::Port.name(8080)        # => "http-alt"
+NetworkUtils::Port.service(8080)     # => { :name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)" }
 ```
 
 ## Development
