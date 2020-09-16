@@ -3,6 +3,8 @@
 require 'socket'
 require 'timeout'
 
+require_relative '../tapp_printer' if ENV['DEBUG']
+
 ##
 #  Namespace Module to wrap self-written Network tools
 module NetworkUtils
@@ -16,6 +18,10 @@ module NetworkUtils
 
     # Internet Assigned Numbers Authority suggested range
     IANA_PORT_RANGE = (49_152..65_535).freeze
+
+    # Current system's IANA port assignments file
+    # Cound be changed using SERVICES_FILE_PATH ENV variable
+    SERVICES_FILE_PATH = '/etc/services'
 
     # Checks if the port is available (free) on the host
     #
@@ -87,6 +93,59 @@ module NetworkUtils
       end
 
       nil
+    end
+
+    # Checks the IANA port assignments file for port info
+    #
+    # @example
+    #    NetworkUtils::Port.service(8080)
+    #       => [
+    #            {:name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)"},
+    #            {:name=>"http-alt", :port=>8080, :protocol=>:tcp, :description=>"HTTP Alternate (see port 80)"}
+    #          ]
+    #
+    # @note When looking just for a short name, use ::name
+    #
+    # @param [Integer] port the port we want to check out
+    #
+    # @return [Array] port services info with the :name, :port, :protocol, :description
+    def self.service(port)
+      # check the IANA port assignments file (default or custom)
+      services_file = ENV['SERVICES_FILE_PATH'] || SERVICES_FILE_PATH
+      return nil unless File.exist?(services_file)
+
+      # read the file and extract info (ony lines matching "bacnet   47808/tcp   # Building Automation and Control Networks" format)
+      services = File.read(services_file).lines.map do |line|
+        line_elements = line.split(/\s+/)
+
+        next unless line_elements[1] =~ /\d+\//
+
+        known_port, known_protocol = line_elements[1].split('/')
+
+        {
+          name: line_elements[0],
+          port: known_port.to_i,
+          protocol: known_protocol.to_sym,
+          description: line_elements[3..-1]&.join(' ')
+        }
+      end
+
+      # extract infor about the requested port
+      Array.wrap(services.compact.find_all { |s| s[:port] == port })
+    end
+
+    # Checks the IANA port assignments file and returns possible service name
+    #
+    # @example
+    #    NetworkUtils::Port.name(8080) => ["http-alt"]
+    #
+    # @note Just a convinience method over ::service
+    #
+    # @param [Integer] port the port we want to check out
+    #
+    # @return [Array] port's possible serivce names
+    def self.name(port)
+      self.service(port).map { |s| s.fetch(:name) }.uniq
     end
 
     # Add a few nice aliases

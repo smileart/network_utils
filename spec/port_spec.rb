@@ -84,5 +84,39 @@ RSpec.describe NetworkUtils::Port do
       expect(NetworkUtils::Port.available?(80, google, 2)).to be_falsy
       expect(NetworkUtils::Port.available?(80, wrong_host, 2)).to be_falsy
     end
+
+    it 'returns the info of the service assigned to the port' do
+      service = NetworkUtils::Port.service(22).first
+
+      expect(service[:name]).to eq('ssh')
+      expect(service[:port]).to eq(22)
+      expect([:udp, :tcp].include?(service[:protocol])).to be_truthy
+      expect(service[:description]).to eq('SSH Remote Login Protocol')
+    end
+
+    it 'returns nil of there\'s no service assigned to the port' do
+      service = NetworkUtils::Port.service(4242)
+
+      expect(service).to eq([])
+    end
+
+    it 'returns assigned service name for the given port' do
+      service = NetworkUtils::Port.name(22)
+
+      expect(service).to eq(["ssh"])
+    end
+
+    it 'returns nil when services file does not exist' do
+      # Modify services file path
+      env_backup = ENV['SERVICES_FILE_PATH']
+      ENV['SERVICES_FILE_PATH'] = '/etc/whatever'
+
+      service = NetworkUtils::Port.service(8080)
+
+      expect(service).to be_nil
+
+      # Returning the original ENV value
+      ENV['SERVICES_FILE_PATH'] = env_backup
+    end
   end
 end

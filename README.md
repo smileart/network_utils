@@ -4,7 +4,8 @@
   <img width="360" title="logo" src ="./img/network_utils.png" />
 </p>
 
-> A set of convenient network utils to get URL info before downloading a resource, work with ports, etc.
+> A set of convenient network utils utils to get URL info before downloading a resource, work with ports, etc.
+> [![Build Status](https://travis-ci.org/smileart/network_utils.svg?branch=master)](https://travis-ci.org/smileart/network_utils)
 
 ## Installation
 
@@ -49,6 +50,12 @@ NetworkUtils::Port.free?(50200)      # => false
 
 NetworkUtils::Port.opened?(50200)    # => true
 NetworkUtils::Port.occupied?(65000)  # => false
+
+NetworkUtils::Port.name(8080)        # => ["http-alt"]
+NetworkUtils::Port.service(8080)     # => [
+                                     #       {:name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)"},
+                                     #       {:name=>"http-alt", :port=>8080, :protocol=>:tcp, :description=>"HTTP Alternate (see port 80)"}
+                                     #    ]
 ```
 
 ## Development
