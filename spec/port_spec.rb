@@ -86,18 +86,24 @@ RSpec.describe NetworkUtils::Port do
     end
 
     it 'returns the info of the service assigned to the port' do
-      service = NetworkUtils::Port.service(24678)
+      service = NetworkUtils::Port.service(22).first
 
-      expect(service[:name]).to eq('proactivate')
-      expect(service[:port]).to eq(24678)
-      expect(service[:protocol]).to eq(:udp)
-      expect(service[:description]).to eq('Turbopower Proactivate')
+      expect(service[:name]).to eq('ssh')
+      expect(service[:port]).to eq(22)
+      expect([:udp, :tcp].include?(service[:protocol])).to be_truthy
+      expect(service[:description]).to eq('SSH Remote Login Protocol')
     end
 
     it 'returns nil of there\'s no service assigned to the port' do
       service = NetworkUtils::Port.service(4242)
 
-      expect(service).to be_nil
+      expect(service).to eq([])
+    end
+
+    it 'returns assigned service name for the given port' do
+      service = NetworkUtils::Port.name(22)
+
+      expect(service).to eq(["ssh"])
     end
 
     it 'returns nil when services file does not exist' do

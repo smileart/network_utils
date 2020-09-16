@@ -99,13 +99,16 @@ module NetworkUtils
     #
     # @example
     #    NetworkUtils::Port.service(8080)
-    #       => { :name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)" }
+    #       => [
+    #            {:name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)"},
+    #            {:name=>"http-alt", :port=>8080, :protocol=>:tcp, :description=>"HTTP Alternate (see port 80)"}
+    #          ]
     #
     # @note When looking just for a short name, use ::name
     #
     # @param [Integer] port the port we want to check out
     #
-    # @return [Hash, nil] port info with the :name, :port, :protocol, :description
+    # @return [Array] port services info with the :name, :port, :protocol, :description
     def self.service(port)
       # check the IANA port assignments file (default or custom)
       services_file = ENV['SERVICES_FILE_PATH'] || SERVICES_FILE_PATH
@@ -128,21 +131,21 @@ module NetworkUtils
       end
 
       # extract infor about the requested port
-      services.compact.find { |s| s[:port] == port }
+      Array.wrap(services.compact.find_all { |s| s[:port] == port })
     end
 
     # Checks the IANA port assignments file and returns possible service name
     #
     # @example
-    #    NetworkUtils::Port.name(8080) => "http-alt"
+    #    NetworkUtils::Port.name(8080) => ["http-alt"]
     #
     # @note Just a convinience method over ::service
     #
     # @param [Integer] port the port we want to check out
     #
-    # @return [String, nil] port's possible serivce name
+    # @return [Array] port's possible serivce names
     def self.name(port)
-      self.service(port).fetch(:name, nil)
+      self.service(port).map { |s| s.fetch(:name) }.uniq
     end
 
     # Add a few nice aliases

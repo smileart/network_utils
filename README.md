@@ -51,8 +51,11 @@ NetworkUtils::Port.free?(50200)      # => false
 NetworkUtils::Port.opened?(50200)    # => true
 NetworkUtils::Port.occupied?(65000)  # => false
 
-NetworkUtils::Port.name(8080)        # => "http-alt"
-NetworkUtils::Port.service(8080)     # => { :name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)" }
+NetworkUtils::Port.name(8080)        # => ["http-alt"]
+NetworkUtils::Port.service(8080)     # => [
+                                     #       {:name=>"http-alt", :port=>8080, :protocol=>:udp, :description=>"HTTP Alternate (see port 80)"},
+                                     #       {:name=>"http-alt", :port=>8080, :protocol=>:tcp, :description=>"HTTP Alternate (see port 80)"}
+                                     #    ]
 ```
 
 ## Development
